@@ -20,6 +20,7 @@ func Run() error {
 	}
 
 	_ = ticket.New(ticketStore)
+	return nil
 }
 
 func main() {
