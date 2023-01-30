@@ -25,4 +25,5 @@ func (s *Service) Migrate() error {
 	if err := m.Up(); err != nil {
 		return err
 	}
+	return nil
 }
