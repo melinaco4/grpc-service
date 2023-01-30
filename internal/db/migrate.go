@@ -1,14 +1,14 @@
 package db
 
 import (
-	"github.com/golang-migrate/migrate"
+	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
 )
 
-func (db *DB) Migrate() error {
-	driver, err := postgres.WithInstance(db.db.DB, &postgres.COnfig{})
+func (s *Service) Migrate() error {
+	driver, err := postgres.WithInstance(s.db.DB, &postgres.Config{})
 	if err != nil {
 		return err
 	}
@@ -18,4 +18,11 @@ func (db *DB) Migrate() error {
 		"postgres",
 		driver,
 	)
+	if err != nil {
+		return err
+	}
+
+	if err := m.Up(); err != nil {
+		return err
+	}
 }

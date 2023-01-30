@@ -8,11 +8,11 @@ import (
 	"github.com/melinaco4/grpc-service/internal/ticket"
 )
 
-type DB struct {
+type Service struct {
 	db *sqlx.DB
 }
 
-func New() (DB, error) {
+func New() (Service, error) {
 	dbUsername := os.Getenv("DB_USERNAME")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbHost := os.Getenv("DB_HOST")
@@ -32,19 +32,21 @@ func New() (DB, error) {
 
 	db, err := sqlx.Connect("postgres", connectionString)
 	if err != nil {
-		return DB{}, err
+		return Service{}, err
 	}
-	return db, nil
+	return Service{
+		db: db,
+	}, nil
 }
 
-func (d DB) GetTicketByID(id string) (ticket.Ticket, error) {
+func (s Service) GetTicketByID(id string) (ticket.Ticket, error) {
 	return ticket.Ticket{}, nil
 }
 
-func (d DB) InsertTicket(t ticket.Ticket) (ticket.Ticket, error) {
+func (s Service) InsertTicket(t ticket.Ticket) (ticket.Ticket, error) {
 	return ticket.Ticket{}, nil
 }
 
-func (d DB) DeleteRocket(id string) error {
+func (s Service) DeleteRocket(id string) error {
 	return nil
 }

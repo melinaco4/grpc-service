@@ -13,6 +13,11 @@ func Run() error {
 	if err != nil {
 		return err
 	}
+	err = ticketStore.Migrate()
+	if err != nil {
+		log.Println("Failed to run migrations")
+		return err
+	}
 
 	_ = ticket.New(ticketStore)
 }
